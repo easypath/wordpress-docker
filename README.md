@@ -17,3 +17,7 @@ WordPress running on Docker, separate DB, NGINX and PHP7-FPM containers
 -Navigate to http://localhost:8080, complete initial WordPress setup
 
 -Refer to WordPress Standards, Install & Operations for additional setup
+
+-Optional: connect phpMyAdmin Docker image to DB container:
+  - Get network by running `docker network ls`
+  - `docker run --name phpmyadmin -d —network=<network> -p 8081:80 phpmyadmin/phpmyadmin`
