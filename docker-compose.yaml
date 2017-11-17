@@ -4,7 +4,7 @@ services:
   db:
     image: mariadb:latest
     volumes:
-      - "./db:/var/lib/mysql"
+      - "./db:/var/lib/mysql:cached"
     restart: always
     environment:
      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
@@ -21,7 +21,7 @@ services:
     image: easypath/php7-fpm-wordpress:latest
     restart: always
     volumes:
-      - ./site:/webapps/wordpress/site
+      - ./site:/webapps/wordpress/site:cached
 
   nginx:
     depends_on:
@@ -34,7 +34,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./nginx/sites-available:/etc/nginx/sites-available
-      - ./site:/webapps/wordpress/site
+      - ./nginx/sites-available:/etc/nginx/sites-available:cached
+      - ./site:/webapps/wordpress/site:cached
     links:
         - php
