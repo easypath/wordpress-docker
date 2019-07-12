@@ -1,24 +1,19 @@
 # WordPress Docker
-WordPress running on Docker, separate DB, NGINX and PHP7-FPM containers
+WordPress running on Docker, separate DB and app containers
 
-## Installation
-- Clone latest WordPress Docker: 
-`git clone https://github.com/easypath/wordpress-docker.git <domain_name> && rm -rf <domain_name>/.git`
+## Usage:
+- Copy database dump to `./db`, rename to `*.sql`
 
-- Make install script executable:
-`chmod +x wordpress-docker.sh`
+- Add to top of SQL dump:
+  ```
+  SET sql_mode = '';
+  ```
 
-- ***Optional:*** change database details in script
-
-- ***Optional***: edit docker-compose.yaml, update "nginx" HTTP port
+- Copy WordPress site to `./site`
 
 - Run script:
-`./wordpress-docker.sh`
+  ```
+  ./wordpress-docker.sh PUBLIC_IP_OF_HOST
+  ```
 
-- Navigate to http://localhost:8080, complete initial WordPress setup
-
-## Adding PhpMyAdmin
-Connecting [phpMyAdmin Docker image](https://hub.docker.com/r/phpmyadmin/phpmyadmin) to DB container:
-  - Get network by running `docker network ls`
-  - `docker run --name phpmyadmin -d --network=<network> -p 8095:80 phpmyadmin/phpmyadmin`
-  - By default, image assumes DB container is named "db"
+- Navigate to http://localhost

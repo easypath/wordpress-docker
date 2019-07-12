@@ -1,0 +1,29 @@
+version: "3.6"
+
+services:
+
+  app:
+    image: wordpress:php7.2-apache
+    depends_on:
+      - db
+    ports:
+      - 80:80
+    volumes:
+      - "./site/plugins:/var/www/html/wp-content/plugins/"
+      - "./site/themes:/var/www/html/wp-content/themes/"
+      - "./site/uploads:/var/www/html/wp-content/uploads/"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_PASSWORD:
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_PASSWORD:

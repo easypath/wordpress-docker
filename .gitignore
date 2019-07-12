@@ -1,5 +1,5 @@
 .DS_Store
-# MariaDB database
+# Database
 /db
 # WordPress installation
 /site
